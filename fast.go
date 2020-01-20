@@ -6,6 +6,7 @@ import (
 	"hw3_bench/structs"
 	"io"
 	"os"
+	"strings"
 )
 
 // вам надо написать более быструю оптимальную этой функции
@@ -15,7 +16,16 @@ func FastSearch(out io.Writer) {
 		panic(err)
 	}
 
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			panic(err)
+		}
+	}()
+
 	scanner := bufio.NewScanner(file)
+	i := 0
+	seenBrowsers := make(map[string]interface{}, 32)
 
 	for scanner.Scan() {
 		userJsonBytes := scanner.Bytes()
@@ -26,17 +36,25 @@ func FastSearch(out io.Writer) {
 			panic(err)
 		}
 
-		fmt.Fprintln(out, user)
+		for _, browser := range user.Browsers {
+			isMSIE := strings.Contains(browser, "MSIE")
+			isAndroid := strings.Contains(browser, "Android")
+			_, currentBrowserAlreadySeen := seenBrowsers[browser]
+
+			if !currentBrowserAlreadySeen && (isMSIE || isAndroid) {
+				seenBrowsers[browser] = struct{}{}
+			}
+		}
+
+		email := strings.ReplaceAll(user.Email, "@", " [at] ")
+		fmt.Fprintf(out, "[%d] %s <%s>\n", i, user.Name, email)
+		i++
 	}
 
-	defer func() {
-		err := file.Close()
-		if err != nil {
-			panic(err)
-		}
-	}()
+	fmt.Fprintln(out, "\nTotal unique browsers", len(seenBrowsers))
 }
 
 func main() {
+	//SlowSearch(os.Stdout)
 	FastSearch(os.Stdout)
 }
