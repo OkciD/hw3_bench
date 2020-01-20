@@ -36,7 +36,7 @@ func easyjson9e1087fdDecodeHw3BenchStructs(in *jlexer.Lexer, out *User) {
 			continue
 		}
 		switch key {
-		case "Browsers":
+		case "browsers":
 			if in.IsNull() {
 				in.Skip()
 				out.Browsers = nil
@@ -59,17 +59,17 @@ func easyjson9e1087fdDecodeHw3BenchStructs(in *jlexer.Lexer, out *User) {
 				}
 				in.Delim(']')
 			}
-		case "Company":
+		case "company":
 			out.Company = string(in.String())
-		case "Country":
+		case "country":
 			out.Country = string(in.String())
-		case "Email":
+		case "email":
 			out.Email = string(in.String())
-		case "Job":
+		case "job":
 			out.Job = string(in.String())
-		case "Name":
+		case "name":
 			out.Name = string(in.String())
-		case "Phone":
+		case "phone":
 			out.Phone = string(in.String())
 		default:
 			in.SkipRecursive()
@@ -86,7 +86,7 @@ func easyjson9e1087fdEncodeHw3BenchStructs(out *jwriter.Writer, in User) {
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"Browsers\":"
+		const prefix string = ",\"browsers\":"
 		out.RawString(prefix[1:])
 		if in.Browsers == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
@@ -102,32 +102,32 @@ func easyjson9e1087fdEncodeHw3BenchStructs(out *jwriter.Writer, in User) {
 		}
 	}
 	{
-		const prefix string = ",\"Company\":"
+		const prefix string = ",\"company\":"
 		out.RawString(prefix)
 		out.String(string(in.Company))
 	}
 	{
-		const prefix string = ",\"Country\":"
+		const prefix string = ",\"country\":"
 		out.RawString(prefix)
 		out.String(string(in.Country))
 	}
 	{
-		const prefix string = ",\"Email\":"
+		const prefix string = ",\"email\":"
 		out.RawString(prefix)
 		out.String(string(in.Email))
 	}
 	{
-		const prefix string = ",\"Job\":"
+		const prefix string = ",\"job\":"
 		out.RawString(prefix)
 		out.String(string(in.Job))
 	}
 	{
-		const prefix string = ",\"Name\":"
+		const prefix string = ",\"name\":"
 		out.RawString(prefix)
 		out.String(string(in.Name))
 	}
 	{
-		const prefix string = ",\"Phone\":"
+		const prefix string = ",\"phone\":"
 		out.RawString(prefix)
 		out.String(string(in.Phone))
 	}
