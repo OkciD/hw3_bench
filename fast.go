@@ -38,14 +38,28 @@ func FastSearch(out io.Writer) {
 			panic(err)
 		}
 
+		var hasMSIE, hasAndroid bool
+
 		for _, browser := range user.Browsers {
 			isMSIE := strings.Contains(browser, "MSIE")
 			isAndroid := strings.Contains(browser, "Android")
 			_, currentBrowserAlreadySeen := seenBrowsers[browser]
 
+			if isMSIE {
+				hasMSIE = true
+			}
+			if isAndroid {
+				hasAndroid = true
+			}
+
 			if !currentBrowserAlreadySeen && (isMSIE || isAndroid) {
 				seenBrowsers[browser] = struct{}{}
 			}
+		}
+
+		if !(hasMSIE && hasAndroid) {
+			i++
+			continue
 		}
 
 		email := strings.ReplaceAll(user.Email, "@", " [at] ")
