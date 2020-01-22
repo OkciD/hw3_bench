@@ -59,18 +59,10 @@ func easyjson9e1087fdDecodeHw3BenchStructs(in *jlexer.Lexer, out *User) {
 				}
 				in.Delim(']')
 			}
-		case "company":
-			out.Company = string(in.String())
-		case "country":
-			out.Country = string(in.String())
 		case "email":
 			out.Email = string(in.String())
-		case "job":
-			out.Job = string(in.String())
 		case "name":
 			out.Name = string(in.String())
-		case "phone":
-			out.Phone = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -102,34 +94,14 @@ func easyjson9e1087fdEncodeHw3BenchStructs(out *jwriter.Writer, in User) {
 		}
 	}
 	{
-		const prefix string = ",\"company\":"
-		out.RawString(prefix)
-		out.String(string(in.Company))
-	}
-	{
-		const prefix string = ",\"country\":"
-		out.RawString(prefix)
-		out.String(string(in.Country))
-	}
-	{
 		const prefix string = ",\"email\":"
 		out.RawString(prefix)
 		out.String(string(in.Email))
 	}
 	{
-		const prefix string = ",\"job\":"
-		out.RawString(prefix)
-		out.String(string(in.Job))
-	}
-	{
 		const prefix string = ",\"name\":"
 		out.RawString(prefix)
 		out.String(string(in.Name))
-	}
-	{
-		const prefix string = ",\"phone\":"
-		out.RawString(prefix)
-		out.String(string(in.Phone))
 	}
 	out.RawByte('}')
 }
