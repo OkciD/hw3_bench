@@ -43,16 +43,12 @@ func FastSearch(out io.Writer) {
 		for _, browser := range user.Browsers {
 			isMSIE := strings.Contains(browser, "MSIE")
 			isAndroid := strings.Contains(browser, "Android")
-			_, currentBrowserAlreadySeen := seenBrowsers[browser]
+			_, browserHasBeenAlreadySeen := seenBrowsers[browser]
 
-			if isMSIE {
-				hasMSIE = true
-			}
-			if isAndroid {
-				hasAndroid = true
-			}
+			hasMSIE = hasMSIE || isMSIE // equivalent to "if isMSIE { hasMSIE = true }"
+			hasAndroid = hasAndroid || isAndroid
 
-			if !currentBrowserAlreadySeen && (isMSIE || isAndroid) {
+			if !browserHasBeenAlreadySeen && (isMSIE || isAndroid) {
 				seenBrowsers[browser] = struct{}{}
 			}
 		}
