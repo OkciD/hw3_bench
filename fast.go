@@ -27,6 +27,8 @@ func FastSearch(out io.Writer) {
 	i := 0
 	seenBrowsers := make(map[string]interface{}, 32)
 
+	fmt.Fprintln(out, "found users:")
+
 	for scanner.Scan() {
 		userJsonBytes := scanner.Bytes()
 		user := structs.User{}
